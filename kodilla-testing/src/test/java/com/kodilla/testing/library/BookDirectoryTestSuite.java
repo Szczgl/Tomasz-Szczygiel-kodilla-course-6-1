@@ -95,14 +95,13 @@ class BookDirectoryTestSuite {
     void testListBooksInHandsOfNoBorrow() {
         // Given
         LibraryUser libraryUser = new LibraryUser("Adam", "Nowak", "78010104554");
-        List<Book> userBookList = new ArrayList<>();
-        lenient().when(libraryDatabaseMock.listBooksInHandsOf(libraryUser)).thenReturn(userBookList);
+        BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);
 
         // When
+        List<Book> listOfBooks = bookLibrary.listBooksInHandsOf(libraryUser);
 
         // Then
-        assertEquals(0, userBookList.size());
-
+        assertEquals(0, listOfBooks.size());
     }
 
     @DisplayName("test borrowed one book ")
@@ -111,14 +110,16 @@ class BookDirectoryTestSuite {
     void testListBooksInHandsOfOneBookBorrow() {
         // Given
         LibraryUser libraryUser = new LibraryUser("Adam", "Nowak", "78010104554");
-        List<Book> userBookList = new ArrayList<>();
-        userBookList.add(new Book("Secrets of Alamo", "John Smith", 2008));
-        lenient().when(libraryDatabaseMock.listBooksInHandsOf(libraryUser)).thenReturn(userBookList);
+        BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);
+        List<Book> userBookList = generateListOfNBooks(1);
+
+        when(libraryDatabaseMock.listBooksInHandsOf(libraryUser)).thenReturn(userBookList);
 
         // When
+        List<Book> listOfBooks = bookLibrary.listBooksInHandsOf(libraryUser);
 
         // Then
-        assertEquals(1, userBookList.size());
+        assertEquals(1, listOfBooks.size());
     }
 
     @DisplayName("test borrowed five books ")
@@ -127,18 +128,15 @@ class BookDirectoryTestSuite {
     void testListBooksInHandsOfFiveBooksBorrow() {
         // Given
         LibraryUser libraryUser = new LibraryUser("Adam", "Nowak", "78010104554");
-        List<Book> userBookList = new ArrayList<>();
-        userBookList.add(new Book("Secrets of Alamo", "John Smith", 2008));
-        userBookList.add(new Book("Secretaries and Directors", "Dilbert Michigan", 2012));
-        userBookList.add(new Book("Secret life of programmers", "Steve Wolkowitz", 2016));
-        userBookList.add(new Book("Secrets of Java", "Ian Tenewitch", 2010));
-        userBookList.add(new Book("Secrets", "Dilbert Tenew", 2009));
-        lenient().when(libraryDatabaseMock.listBooksInHandsOf(libraryUser)).thenReturn(userBookList);
+        BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);
+        List<Book> userBookList = generateListOfNBooks(10);
+
+        when(libraryDatabaseMock.listBooksInHandsOf(libraryUser)).thenReturn(userBookList);
 
         // When
+        List<Book> listOfBooks = bookLibrary.listBooksInHandsOf(libraryUser);
 
         // Then
-        assertEquals(5, userBookList.size());
-
+        assertEquals(10, listOfBooks.size());
     }
 }
