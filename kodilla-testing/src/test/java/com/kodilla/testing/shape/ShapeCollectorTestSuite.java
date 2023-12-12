@@ -163,7 +163,7 @@ public class ShapeCollectorTestSuite {
             //When
             String result = shapeCollector.showFigures();
             //Then
-            assertEquals("Triangle,Square,Circle", result);
+            assertEquals("Triangle Square Circle ", result);
         }
     }
 
