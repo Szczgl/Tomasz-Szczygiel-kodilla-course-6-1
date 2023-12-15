@@ -1,38 +1,33 @@
 package com.kodilla.stream;
 
+import com.kodilla.stream.forumuser.Forum;
+import com.kodilla.stream.forumuser.ForumUser;
 
-import com.kodilla.stream.beautifier.PoemBeautifier;
-import com.kodilla.stream.iterate.NumbersGenerator;
-import com.kodilla.stream.lambda.ExpressionExecutor;
-import com.kodilla.stream.reference.FunctionalCalculator;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class StreamMain {
     public static void main(String[] args) {
-        ExpressionExecutor expressionExecutor = new ExpressionExecutor();
-        PoemBeautifier poemBeautifier = new PoemBeautifier();
+        System.out.println("7.3 Stream");
 
-        System.out.println("Calculating expressions with lambdas");
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a + b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a - b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a * b);
-        expressionExecutor.executeExpression(10, 5, (a, b) -> a / b);
 
-        System.out.println("Calculating expressions with method references");
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::multiplyAByB);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::addAToB);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::subBFromA);
-        expressionExecutor.executeExpression(3, 4, FunctionalCalculator::divideAByB);
+        Forum forum = new Forum();
 
-        System.out.println("Upiększanie słów");
-        poemBeautifier.beautify("Tekst do upiększenia", text -> "ABC " + "Tekst do upiększenia" + " ABC");
-        poemBeautifier.beautify("Tekst do upiększenia", String::toUpperCase);
-        poemBeautifier.beautify("Tekst do upiększenia", text -> "Nic " + text.substring(6));
-        poemBeautifier.beautify("Tekst do upiększenia", text ->  text.replace('e','o'));
-        poemBeautifier.beautify("    Tekst do upiększenia", String::trim);
+        Map<Integer, ForumUser> theResultStringOfUser = forum.getList().stream()
+                .filter(sex -> sex.getSexUser() == 'M')
+                .filter(date -> Period.between(date.getBirthDateUser(),LocalDate.now()).getYears() > 20)
+                .filter(post -> post.getNumberOfPosts() > 0)
+                .collect(Collectors.toMap(ForumUser::getIdUser,forumUser -> forumUser));
 
-        System.out.println("Iteracja");
-        System.out.println("Using Stream to generate even numbers from 1 to 20");
-        NumbersGenerator.generateEven(20);
+        theResultStringOfUser.entrySet().stream()
+                .map(entry -> entry.getKey() + ": " + entry.getValue())
+                .forEach(System.out::println);
+
+
+
+
 
     }
 }
