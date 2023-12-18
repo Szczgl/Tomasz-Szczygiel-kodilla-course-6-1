@@ -4,7 +4,7 @@ import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Array implements ArrayOperations {
+public class Array {
 
     public double getAverage(int[] numbers){
 
