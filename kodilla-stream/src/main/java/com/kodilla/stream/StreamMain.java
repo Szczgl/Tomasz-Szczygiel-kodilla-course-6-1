@@ -24,7 +24,3 @@ public class StreamMain {
         theResultStringOfUser.entrySet().stream()
                 .map(entry -> entry.getKey() + ": " + entry.getValue())
                 .forEach(System.out::println);
-
-
-    }
-}

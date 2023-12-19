@@ -5,8 +5,6 @@ import org.junit.jupiter.api.Test;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -115,6 +113,7 @@ public class BoardTestSuite {
         List<TaskList> undoneTasks = new ArrayList<>();
         undoneTasks.add(new TaskList("To do"));
         undoneTasks.add(new TaskList("In progress"));
+
         List<Task> tasks = project.getTaskLists().stream()
                 .filter(undoneTasks::contains)
                 .flatMap(tl -> tl.getTasks().stream())
@@ -153,16 +152,16 @@ public class BoardTestSuite {
         //When
         var inProgressTasks = new ArrayList<>();
         inProgressTasks.add(new TaskList("In progress"));
+
         var averageTasks = project.getTaskLists().stream()
                 .filter(inProgressTasks::contains)
                 .flatMap(tl -> tl.getTasks().stream())
-                .map(task -> Duration.between(task.getDeadline(), task.getCreated()).toMinutes())
-                .mapToLong(Long::longValue)
+                .mapToLong(task -> Duration.between(task.getCreated().atStartOfDay(), task.getDeadline().atStartOfDay()).toDays())
                 .average()
                 .getAsDouble();
 
         //Then
-        assertEquals(12.0, averageTasks, 0.01);
+        assertEquals(18.33, averageTasks, 0.01);
 
 
     }
