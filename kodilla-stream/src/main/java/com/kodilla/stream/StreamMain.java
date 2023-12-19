@@ -1,9 +1,7 @@
 package com.kodilla.stream;
 
-import com.kodilla.stream.array.Array;
 import com.kodilla.stream.forumuser.Forum;
 import com.kodilla.stream.forumuser.ForumUser;
-import com.kodilla.stream.world.World;
 
 import java.time.LocalDate;
 import java.time.Period;
