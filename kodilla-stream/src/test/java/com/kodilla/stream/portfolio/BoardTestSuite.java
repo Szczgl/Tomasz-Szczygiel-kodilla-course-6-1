@@ -162,8 +162,6 @@ public class BoardTestSuite {
 
         //Then
         assertEquals(18.33, averageTasks, 0.01);
-
-
     }
 
 }
