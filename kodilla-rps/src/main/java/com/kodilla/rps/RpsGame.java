@@ -12,7 +12,7 @@ public class RpsGame {
     private int resultComputer = 0;
     private String userName;
     private int numberOfWin;
-    private String yesOrNot;
+    String yesOrNot;
     private boolean end = false;
 
     public RpsGame() {
