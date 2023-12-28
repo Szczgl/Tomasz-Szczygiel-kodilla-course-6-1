@@ -26,10 +26,5 @@ public class FirstChallenge {
         } finally {
             System.out.println("I am gonna be here... always!");
         }
-
-
-
-
-
     }
 }
