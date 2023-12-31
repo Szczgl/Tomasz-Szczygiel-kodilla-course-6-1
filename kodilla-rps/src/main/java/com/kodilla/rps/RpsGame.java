@@ -5,26 +5,27 @@ import java.util.Scanner;
 
 public class RpsGame {
 
-    Scanner scanner = new Scanner(System.in);
-    Random random = new Random();
+    private final Scanner scanner = new Scanner(System.in);
+    private final Random random = new Random();
     private String computerChoiceString;
     String yesOrNot;
-    private boolean end = false;
-    private RpsWelcomeScreen rpsWelcomeScreen = new RpsWelcomeScreen();
-    private RpsResults rpsResults = new RpsResults();
+
+    private final RpsWelcomeScreen rpsWelcomeScreen = new RpsWelcomeScreen();
+    private RpsResults rpsResults;
 
     public RpsGame() {
-        rpsWelcomeScreen.userName();
-        game();
+        startGame();
     }
 
-    public void setEnd(boolean end) {
-        this.end = end;
+    public void startGame() {
+        rpsWelcomeScreen.userName();
+        rpsResults = new RpsResults(rpsWelcomeScreen.getUserName(), rpsWelcomeScreen.getNumberOfWin());
+        game();
     }
 
     public void game() {
 
-        while (!end) {
+        while (!rpsResults.end) {
             System.out.println("\nklawisz 1 - kamień");
             System.out.println("klawisz 2 - jaszczurka");
             System.out.println("klawisz 3 - Spock");
@@ -67,7 +68,7 @@ public class RpsGame {
                     do {
                         yesOrNot = scanner.nextLine();
                         if (yesOrNot.equals("t")) {
-                            end = true;
+                            rpsResults.end = true;
                         } else if (yesOrNot.equals("n")) {
                             game();
                         } else {
@@ -80,7 +81,9 @@ public class RpsGame {
                     do {
                         yesOrNot = scanner.nextLine();
                         if (yesOrNot.equals("t")) {
-                            rpsWelcomeScreen.userName();
+                            rpsResults.setResultComputer(0);
+                            rpsResults.setResultUser(0);
+                            startGame();
                         } else if (yesOrNot.equals("n")) {
                             game();
                         } else {
@@ -91,12 +94,14 @@ public class RpsGame {
                 default:
                     System.out.println("Niepoprawny wybór");
                     break;
+
             }
+
         }
     }
 
     public void computerMove() {
-        int computerChoice = random.nextInt(1,5);
+        int computerChoice = random.nextInt(1, 5);
         switch (computerChoice) {
             case 1:
                 System.out.println("komputer wybrał kamień");
