@@ -1,4 +1,5 @@
 import com.example.kodillagoodpatterns.challenges.MovieStore;
+import com.example.kodillagoodpatterns.challenges.food2door.*;
 import com.example.kodillagoodpatterns.challenges.pseudoAllegro.*;
 
 import java.util.*;
@@ -18,6 +19,7 @@ public class GoodPatternsMain {
                 .collect(Collectors.joining(" ! "));
         System.out.println(print);
         System.out.println();
+        System.out.println();
 
         //  12.2
 
@@ -34,6 +36,23 @@ public class GoodPatternsMain {
         System.out.println("Zamówienie dla " + orderResult.getUser().getUserName() + ": " + (orderResult.isOrdered() ? "Powodzenie" : "Brak"));
 
         //12.4
+
+        Producer extraFoodShop = new ExtraFoodShop();
+        Producer healthyShop = new HealthyShop();
+        Producer glutenFreeShop = new GlutenFreeShop();
+
+        Order order1 = new Order(healthyShop,"Kawa", 20);
+        Order order2 = new Order(glutenFreeShop,"Czekolada", 10);
+
+        ProcessingOrder processingOrder = new ProcessingOrder();
+        boolean ifSuccessOrder = processingOrder.processingOrder(order1);
+
+        if (ifSuccessOrder) {
+            System.out.println("zamówienie w realizacji");
+        } else {
+            System.out.println("zamówienie odrzucono");
+        }
+
 
     }
 }
