@@ -1,4 +1,6 @@
 import com.example.kodillagoodpatterns.challenges.MovieStore;
+import com.example.kodillagoodpatterns.challenges.flyApp.Flight;
+import com.example.kodillagoodpatterns.challenges.flyApp.FlightService;
 import com.example.kodillagoodpatterns.challenges.food2door.*;
 import com.example.kodillagoodpatterns.challenges.pseudoAllegro.*;
 
@@ -52,8 +54,25 @@ public class GoodPatternsMain {
         } else {
             System.out.println("zamówienie odrzucono");
         }
+        System.out.println();
 
+        //12.5
 
+        FlightService flightService = new FlightService();
+
+        flightService.addFlight(new Flight("Gdańsk", "Wrocław"));
+        flightService.addFlight(new Flight("Kraków", "Wrocław"));
+        flightService.addFlight(new Flight("Warszawa", "Gdańsk"));
+        flightService.addFlight(new Flight("Kraków", "Warszawa", "Gdańsk"));
+        flightService.addFlight(new Flight("Kraków", "Katowice", "Gdańsk"));
+
+        List<Flight> flightFromKrakow = flightService.findFlightFromCity("Kraków");
+        List<Flight> flightToWroclaw = flightService.findFlightToCity("Wrocław");
+        List<Flight> flightToGdanskViaKatowice = flightService.findFlightThroughCity("Gdańsk", "Katowice");
+
+        System.out.println("Loty z Krakowa: " + flightFromKrakow);
+        System.out.println("Loty do Wrocławia: " + flightToWroclaw);
+        System.out.println("Loty do Gdańska z przesiadką w Katowicach: " + flightToGdanskViaKatowice);
     }
 }
 
