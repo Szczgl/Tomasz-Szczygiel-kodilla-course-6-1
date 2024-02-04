@@ -1,10 +1,10 @@
-package com.example.kodillagoodpatterns;
+package com.kodilla.spring.web;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class KodillaGoodPatternsApplicationTests {
+class KodillaSpringWebApplicationTests {
 
     @Test
     void contextLoads() {
