@@ -1,6 +1,6 @@
 package com.kodilla.patterns.singleton;
 
-public enum Loger {
+public enum Logger {
 
     LOGIN;
 

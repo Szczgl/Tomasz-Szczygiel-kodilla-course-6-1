@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoggerTestSuite {
 
-    private static Loger loger;
+    private static Logger logger;
 
     @BeforeAll
     public static void login() {
-        loger = Loger.LOGIN;
-        loger.log("Tomasz");
+        logger = Logger.LOGIN;
+        logger.log("Tomasz");
     }
 
     @Test
@@ -20,7 +20,7 @@ public class LoggerTestSuite {
         //Given
 
         //Then
-        String login = loger.getLastLog();
+        String login = logger.getLastLog();
 
         //When
         assertEquals("Tomasz", login);
