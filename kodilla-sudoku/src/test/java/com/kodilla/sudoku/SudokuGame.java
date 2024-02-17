@@ -14,7 +14,7 @@ public class SudokuGame {
         this.board = new Board();
     }
 
-    public boolean game() {
+    public void game() {
         System.out.println(board.toString());
 
         System.out.println("Podaj ilość liczb, które chcesz wprowadzić (od 1 do 81):");
@@ -23,7 +23,6 @@ public class SudokuGame {
 
         if (numbersToInput < 1 || numbersToInput > 81) {
             System.out.println("Nieprawidłowa ilość liczb!");
-            return false;
         }
     for (int i = 0; i < numbersToInput; i++) {
         System.out.println(" podaj współrzędne oraz liczbę którą chcesz wstawić np. 2,3,7");
@@ -32,7 +31,6 @@ public class SudokuGame {
 
         if (parts.length != 3) {
             System.out.println("Nieprawidłowy format danych!");
-            return false;
         }
 
         int row = Integer.parseInt(parts[0].trim()) - 1;
@@ -41,12 +39,10 @@ public class SudokuGame {
 
         if (row < 0 || row >= Box.SIZE || col < 0 || col >= Box.SIZE || value < 1 || value > 9) {
             System.out.println("Nieprawidłowe współrzędne lub wartość!");
-            return false;
         }
 
         if (!isValidMove(row, col, value)) {
             System.out.println("Nieprawidłowy ruch! Spróbuj ponownie.");
-            return false;
         }
 
         this.board.setBox(row, col, value);
@@ -58,8 +54,6 @@ public class SudokuGame {
         } else {
             System.out.println("Nieprawidłowe Sudoku!");
         }
-
-        return true;
     }
 
     private boolean solve(int row, int col) {
