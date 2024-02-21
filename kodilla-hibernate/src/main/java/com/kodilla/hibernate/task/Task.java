@@ -1,6 +1,7 @@
 package com.kodilla.hibernate.task;
 
-import org.springframework.lang.NonNull;
+import com.kodilla.hibernate.tasklist.TaskList;
+import javax.validation.constraints.NotNull;
 
 import javax.persistence.*;
 import java.util.*;
@@ -13,6 +14,8 @@ public class Task {
     private String description;
     private Date created;
     private int duration;
+    private TaskFinancialDetails taskFinancialDetails;
+    private TaskList taskList;
 
     public Task() {
 
@@ -26,7 +29,7 @@ public class Task {
 
     @Id
     @GeneratedValue
-    @NonNull
+    @NotNull
     @Column(name = "ID", unique = true)
     public int getId() {
         return id;
@@ -37,7 +40,7 @@ public class Task {
         return description;
     }
 
-    @NonNull
+    @NotNull
     @Column(name = "CREATED")
     public Date getCreated() {
         return created;
@@ -46,6 +49,18 @@ public class Task {
     @Column(name = "DURATION")
     public int getDuration() {
         return duration;
+    }
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "TASKS_FINANCIALS_ID")
+    public TaskFinancialDetails getTaskFinancialDetails() {
+        return taskFinancialDetails;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "TASKLIST_ID")
+    public TaskList getTaskList() {
+        return taskList;
     }
 
     public void setId(int id) {
@@ -62,5 +77,13 @@ public class Task {
 
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    public void setTaskFinancialDetails(TaskFinancialDetails taskFinancialDetails) {
+        this.taskFinancialDetails = taskFinancialDetails;
+    }
+
+    public void setTaskList(TaskList taskList) {
+        this.taskList = taskList;
     }
 }
