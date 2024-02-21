@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -13,6 +15,9 @@ class CompanyDaoTestSuite {
 
     @Autowired
     private CompanyDao companyDao;
+
+    @Autowired
+    private EmployeeDao employeeDao;
 
     @Test
     void testSaveManyToMany() {
@@ -51,12 +56,60 @@ class CompanyDaoTestSuite {
         assertNotEquals(0, greyMatterId);
 
         //CleanUp
-        //try {
-        //    companyDao.deleteById(softwareMachineId);
-        //    companyDao.deleteById(dataMaestersId);
-        //    companyDao.deleteById(greyMatterId);
-        //} catch (Exception e) {
-        //    //do nothing
-        //}
+        try {
+            companyDao.deleteById(softwareMachineId);
+            companyDao.deleteById(dataMaestersId);
+            companyDao.deleteById(greyMatterId);
+        } catch (Exception e) {
+            //do nothing
+        }
+    }
+
+    @Test
+    public void testQueriesFindByString() {
+
+        //Given
+        Employee employee = new Employee("Tomasz", "Kowalski");
+        Company company = new Company("Kodilla");
+
+        company.getEmployees().add(employee);
+        employee.getCompanies().add(company);
+
+        //When
+        employeeDao.save(employee);
+        int tomaszKowalskiId = employee.getId();
+
+        List<Employee> employeesWithLastName = employeeDao.retrieveEmployeesByLastname("Kowalski");
+
+        //Then
+        assertEquals(1, employeesWithLastName.size());
+
+        //CleanUp
+        employeeDao.deleteById(tomaszKowalskiId);
+
+    }
+
+    @Test
+    public void testQueriesFindBySSubstring() {
+
+        //Given
+        Employee employee = new Employee("Tomasz", "Kowaslki");
+        Company company = new Company("Kodilla");
+
+        company.getEmployees().add(employee);
+        employee.getCompanies().add(company);
+
+        //When
+        companyDao.save(company);
+        int kodillaId = company.getId();
+
+        List<Company> companiesWithThreeFirsLetters = companyDao.retrieveCompaniesByFirstThreeLetters("Kod");
+
+        //Then
+        assertEquals(1, companiesWithThreeFirsLetters.size());
+
+        //CleanUp
+        companyDao.deleteById(kodillaId);
+
     }
 }

@@ -53,7 +53,7 @@ public class InvoiceDaoTestSuite {
 
         //Then
         assertNotEquals(0, id);
-        //assertEquals("12-34", invoice.getNumber());
+        assertEquals("12-34", invoice.getNumber());
 
         //CleanUp
         invoiceDao.deleteById(id);
