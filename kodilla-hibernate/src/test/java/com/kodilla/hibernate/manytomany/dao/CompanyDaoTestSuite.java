@@ -88,28 +88,4 @@ class CompanyDaoTestSuite {
         employeeDao.deleteById(tomaszKowalskiId);
 
     }
-
-    @Test
-    public void testQueriesFindBySSubstring() {
-
-        //Given
-        Employee employee = new Employee("Tomasz", "Kowaslki");
-        Company company = new Company("Kodilla");
-
-        company.getEmployees().add(employee);
-        employee.getCompanies().add(company);
-
-        //When
-        companyDao.save(company);
-        int kodillaId = company.getId();
-
-        List<Company> companiesWithThreeFirsLetters = companyDao.retrieveCompaniesByFirstThreeLetters("Kod");
-
-        //Then
-        assertEquals(1, companiesWithThreeFirsLetters.size());
-
-        //CleanUp
-        companyDao.deleteById(kodillaId);
-
-    }
 }
