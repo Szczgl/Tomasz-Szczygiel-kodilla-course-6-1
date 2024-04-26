@@ -11,6 +11,11 @@ import java.util.List;
         query = "SELECT * FROM companies WHERE LEFT(company_name, 3) = :FIRSTTHREELETTERS ",
         resultClass = Company.class
 )
+
+@NamedQuery(
+        name = "Company.retrieveCompanyLike",
+        query = "FROM Company c WHERE c.name LIKE concat('%',:NAME,'%')"
+)
 @Entity
 @Table(name = "COMPANIES")
 public class Company {
